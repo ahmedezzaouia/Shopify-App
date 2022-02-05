@@ -1,47 +1,35 @@
-import React from "react";
-import { Heading, Page, TextStyle, Layout, EmptyState } from "@shopify/polaris";
-import { ResourcePicker, TitleBar } from "@shopify/app-bridge-react";
+import { Heading, Page } from "@shopify/polaris";
 
-const img = "https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg";
-
-// Sets the state for the resource picker
-class Index extends React.Component {
-  state = { open: false };
-  render() {
-    return (
-      <Page>
-        <TitleBar
-          primaryAction={{
-            content: "Select products",
-            onAction: () => this.setState({ open: true }),
-          }}
-        />
-        <ResourcePicker // Resource picker component
-          resourceType="Product"
-          showVariants={false}
-          open={this.state.open}
-          onSelection={(resources) => this.handleSelection(resources)}
-          onCancel={() => this.setState({ open: false })}
-        />
-        <Layout>
-          <EmptyState
-            heading="Discount your products temporarily"
-            action={{
-              content: "Select products",
-              onAction: () => this.setState({ open: true }),
-            }}
-            image={img}
-          >
-            <p>Select products to change their price temporarily.</p>
-          </EmptyState>
-        </Layout>
-      </Page>
-    );
-  }
-  handleSelection = (resources) => {
-    this.setState({ open: false });
-    console.log(resources);
-  };
-}
+const Index = () => (
+  <Page>
+    <Heading>Manage Your Products With This Inventory Tracker</Heading>
+    <div className="status">
+      <div className="status_button">
+        Anvailable Products <br /> <span>{26}</span>
+      </div>
+      <div className="status_button">
+        Nearly Anvailable <br />
+        <span>{10}</span>
+      </div>
+    </div>
+    <div className="emptyState">
+      Click on The Two Buttons Above To show which Products is Anvailable or
+      Nearly to finish
+    </div>
+    <div className="productsList">
+      <div className="productCard">
+        <div className="productCard_image">
+          <img src="" alt="" />
+          image
+        </div>
+        <div className="product_content">
+          <h5>Product title</h5>
+          <p>Product Description....</p>
+        </div>
+        <div className="product_price">15.05$</div>
+      </div>
+    </div>
+  </Page>
+);
 
 export default Index;
