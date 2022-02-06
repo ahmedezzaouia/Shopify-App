@@ -1,44 +1,72 @@
 import { Heading, Page } from "@shopify/polaris";
+import GET_PRODUCTS from "../graphql/get_products";
+import { useQuery } from "react-apollo";
+import React, { useState, useEffect } from "react";
 
-const Index = () => (
-  <Page>
-    <Heading>Manage Your Products With This Inventory Tracker</Heading>
-    <div className="status">
-      <div className="status_button">
-        Anvailable Products <br /> <span>{26}</span>
-      </div>
-      <div className="status_button">
-        Nearly Anvailable <br />
-        <span>{10}</span>
-      </div>
-    </div>
-    <div className="emptyState">
-      Click on The Two Buttons Above To show which Products is Anvailable or
-      Nearly to finish
-    </div>
-    <div className="productsList">
-      <div className="productCard">
-        <div className="productCard_image">
-          <img
-            src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
-            height="100"
-            alt=""
-          />
+const Index = () => {
+  console.log("index start");
+  const [products, setProducts] = useState([]);
+  const { loading, error, data } = useQuery(GET_PRODUCTS);
+
+  if (!data || data === null) return <div>loading...</div>;
+
+  console.log("data", data?.products?.edges);
+  const FormatedProducts = data?.products?.edges.map((item) => {
+    return {
+      title: item?.node?.title,
+      description: item?.node?.description,
+      quantity: item?.node?.totalInventory,
+      image: item?.node.small_image?.edges[0]?.node?.src,
+    };
+  });
+
+  const filterProducts = (isAnvailable) => {
+    if (isAnvailable === 0) {
+      const filtered = FormatedProducts.filter((item) => item.quantity === 0);
+      setProducts(filtered);
+    } else {
+      const filtered = FormatedProducts.filter(
+        (item) => item.quantity >= 1 && item.quantity <= 4
+      );
+      setProducts(filtered);
+    }
+  };
+
+  return (
+    <Page>
+      <Heading>Manage Your Products With This Inventory Tracker</Heading>
+      <div className="status">
+        <div className="status_button" onClick={() => filterProducts(0)}>
+          Anvailable Products
         </div>
-        <div className="product_content">
-          <h5>Product title</h5>
-          <p>
-            In publishing and graphic design, Lorem ipsum is a placeholder text
-            commonly used to demonstrate the visual form of a document or a
-            typeface without relying on meaningful content. Lorem ipsum may be
-            used as a placeholder before the final copy is available. Wikipedia
-            .
-          </p>
+        <div className="status_button" onClick={() => filterProducts(1)}>
+          Nearly Anvailable
         </div>
-        <div className="product_price">15 </div>
       </div>
-    </div>
-  </Page>
-);
+
+      <div className="productsList">
+        {products?.length === 0 || products === null ? (
+          <div className="emptyState">
+            Click on The Two Buttons Above To show which Products is Anvailable
+            or Nearly to finish
+          </div>
+        ) : (
+          products.map((item) => (
+            <div className="productCard">
+              <div className="productCard_image">
+                <img src={item.image} height="100" alt="" />
+              </div>
+              <div className="product_content">
+                <h5>{item.title} </h5>
+                <p>{item.description} </p>
+              </div>
+              <div className="product_price">{item.quantity}</div>
+            </div>
+          ))
+        )}
+      </div>
+    </Page>
+  );
+};
 
 export default Index;

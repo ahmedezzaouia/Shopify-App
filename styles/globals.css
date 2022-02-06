@@ -36,6 +36,8 @@
   display: flex;
   justify-content: space-around;
   border-radius: 20px;
+  margin: 11px 10px;
+
   align-items: center;
 }
 .profuctCard h5 {
@@ -45,6 +47,8 @@
 .productCard .product_price {
   font-size: 1.8rem;
   font-family: fantasy;
+  padding: 1px 16px;
+  color: red;
 }
 
 .productCard_image {
