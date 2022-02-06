@@ -8,7 +8,8 @@
 
 .status_button {
   margin: 5rem;
-  background-color: #fbf5d9;
+  background-color: #f1f1f185;
+
   padding: 30px;
   text-align: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -28,4 +29,24 @@
   font-size: 2rem;
   text-align: center;
   font-family: fantasy;
+}
+.productCard {
+  background: #e7e7e7;
+  padding: 21px 63px;
+  display: flex;
+  justify-content: space-around;
+  border-radius: 20px;
+  align-items: center;
+}
+.profuctCard h5 {
+  font-size: 1.7rem;
+  font-family: fantasy;
+}
+.productCard .product_price {
+  font-size: 1.8rem;
+  font-family: fantasy;
+}
+
+.productCard_image {
+  margin: 0px 9px;
 }
