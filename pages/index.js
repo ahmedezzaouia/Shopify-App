@@ -34,7 +34,10 @@ const Index = () => {
 
   return (
     <Page>
-      <Heading>Manage Your Products With This Inventory Tracker</Heading>
+      <Heading>
+        Manage Your Products With <br />
+        This Inventory Tracker App
+      </Heading>
       <div className="status">
         <div className="status_button" onClick={() => filterProducts(0)}>
           unavailable Products
