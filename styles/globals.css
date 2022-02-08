@@ -15,9 +15,12 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 1.5rem;
   cursor: pointer;
-  border: 0.2px #201f17 solid;
+  /* border: 0.2px #201f17 solid; */
+  box-shadow: 1px 3px 9px;
 }
-
+.status_button :hover {
+  background-color: aqua;
+}
 .status_button span {
   font-size: large;
 }

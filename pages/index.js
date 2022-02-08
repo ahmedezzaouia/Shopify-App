@@ -37,10 +37,10 @@ const Index = () => {
       <Heading>Manage Your Products With This Inventory Tracker</Heading>
       <div className="status">
         <div className="status_button" onClick={() => filterProducts(0)}>
-          Anvailable Products
+          unavailable Products
         </div>
         <div className="status_button" onClick={() => filterProducts(1)}>
-          Nearly Anvailable
+          Nearly unavailable
         </div>
       </div>
 
